@@ -1,5 +1,6 @@
 # LMS-Frontend
 Frontend of our Next-Gen Learning Management System is built with NextJs and Redux for state management.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
