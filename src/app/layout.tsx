@@ -8,6 +8,8 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
+
+// These styles apply to every route in the application
 import './globals.css'
 
 const geistSans = Geist({
