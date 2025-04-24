@@ -1,4 +1,16 @@
+'use client'
+
+import { useUser } from '@clerk/nextjs'
+
 export default function AdminPage() {
-    return <h1 className="text-2xl font-semibold">Admin Dashboard</h1>;
-  }
+  const { user } = useUser()
+
+  return (
+    <main className="p-8">
+      <h1 className="text-3xl font-bold mb-4">Admin Dashboard</h1>
+      <p className="text-lg">Welcome, {user?.fullName}!</p>
+      {/* TODO: User & Role management */}
+    </main>
+  )
+}
   

@@ -1,13 +1,8 @@
 import { type Metadata } from 'next'
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
+import Providers from './providers'
+import Link from 'next/link'
 
 // These styles apply to every route in the application
 import './globals.css'
@@ -33,21 +28,34 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <header className="flex justify-end items-center p-4 gap-4 h-16">
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Providers>
+          <header className="flex justify-between items-center p-4 h-16 bg-white shadow-sm">
+            <div className="flex items-center space-x-6">
+              <Link href="/" className="text-2xl font-bold">NG-LMS</Link>
+              <SignedIn>
+                <nav className="flex space-x-4">
+                  <Link href="/student" className="hover:underline">Student</Link>
+                  <Link href="/teacher" className="hover:underline">Teacher</Link>
+                  <Link href="/admin" className="hover:underline">Admin</Link>
+                  <Link href="/manager" className="hover:underline">Manager</Link>
+                </nav>
+              </SignedIn>
+            </div>
+            <div className="flex items-center space-x-3">
+              <SignedOut>
+                <SignInButton />
+                <SignUpButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
           </header>
           {children}
-        </body>
-      </html>
-    </ClerkProvider>
+        </Providers>
+      </body>
+    </html>
   )
 }
