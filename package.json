@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,md,css}\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.16.0",
@@ -34,8 +36,17 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.2.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.5.1",
     "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
     "tailwindcss": "^4.1.4",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,json,md,css}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
