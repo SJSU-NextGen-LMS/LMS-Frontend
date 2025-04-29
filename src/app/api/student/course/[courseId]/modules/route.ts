@@ -1,14 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
 
-// export async function GET() {
-//   // Mock assigned courses data
-//   const courses = [
-//     { id: '1', title: 'Intro to React', progress: 20 },
-//     { id: '2', title: 'Advanced TypeScript', progress: 80 },
-//     { id: '3', title: 'LMS Fundamentals', progress: 50 },
-//   ]
-//   return NextResponse.json(courses)
-// }
 async function apiGet<T>(url: string): Promise<T> {
   const backendBaseUrl =
     process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
@@ -32,23 +23,28 @@ async function apiGet<T>(url: string): Promise<T> {
     throw error;
   }
 }
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { courseId: string } }
+) {
   try {
+    const { courseId } = params;
+
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get('userId');
 
-    if (!userId) {
-      return NextResponse.json({ error: 'No userId' }, { status: 400 });
+    if (!courseId) {
+      return NextResponse.json({ error: 'No courseId' }, { status: 400 });
     }
 
-    const progresses = await apiGet(`/progress/${userId}`);
-    console.log('progresses from backend:', progresses);
+    const modules = await apiGet(`/progress/${userId}/${courseId}`);
+    console.log('models from backend:', modules);
 
-    return NextResponse.json(progresses);
+    return NextResponse.json(modules);
   } catch (error) {
-    console.error('Error fetching progresses:', error);
+    console.error('Error fetching models:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch progresses' },
+      { error: 'Failed to fetch models' },
       { status: 500 }
     );
   }
